@@ -1,0 +1,10 @@
+def has_banner_class_and_hello_world(tag):
+    return tag.attr('class') == "banner" and tag.string == "Hello world"
+
+soup.find_all(has_banner_class_and_hello_world)
+
+
+for ids
+soup.select("#selected")
+
+"http://www.ifar.org/"
