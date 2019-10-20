@@ -7,4 +7,9 @@ soup.find_all(has_banner_class_and_hello_world)
 for ids
 soup.select("#selected")
 
+prefix
 "http://www.ifar.org/"
+
+when we use beautifulsoup and need text only use
+.get_text()
+whatever you put in the function above, as a string, will be used to separate each content
