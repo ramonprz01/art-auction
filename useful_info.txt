@@ -13,3 +13,82 @@ prefix
 when we use beautifulsoup and need text only use
 .get_text()
 whatever you put in the function above, as a string, will be used to separate each content
+
+
+--------------------------- From DataCamp -------------------------------------
+
+Use xpath to navigate to a very specific place in the html file
+
+xpath = 'hmtl/div/p[2]'
+
+You can navigate to all of the elements of a table or something similar with '//table'
+
+xpath = '//table'
+
+You can combine both of the above as well to navigate to all of the tables that are descendant of that div element
+
+xpath = 'hmtl/div/p[2]//table'
+
+You can go further with XPaths by putting what you want within a tag --e.g. a specific class of that tag-- inside brackets
+
+xpath = '//span[@class="span-class"]'
+
+You can also use a * wildcard to select everything after a tag. It will select everything afterwards regardless of which tag it is.
+
+xpath = '/html/body/*'
+
+
+A useful function to check the text of elements
+
+def print_element_text( xpath ):
+  text = ' '.join( sel.xpath( xpath ).xpath( './text()' ).extract() )
+  print( text )
+  
+Characters such as @ refer to attributes
+
+We could also combine wildcards with @ attributes to get straight to were we would like to get
+
+xpath = '//*[@is="uid"]'
+
+or you could get even more specific with
+
+xpath = '//*[@is="uid"]/p[2]'
+
+Also check, contains with attributes
+
+contains(@attri-name, "string-expres")
+xpath = '//*[contains(@class, "class-1)]'
+
+The difference with the above and xpath = '//*[@class="class-1"]' is that the latter will only pick elements that match entirely to class-1 while the former will make sure the class or attribute is just contained in the element
+
+To go directly to the attribute you just need to put is at the end of an expression
+
+xpath = 'hmtl/div/p[2]/@class'
+
+If you'd like to print the attribute for a given path, use:
+
+def print_attribute( xpath ):
+  print( "You have selected:" )
+  for i,el in enumerate(sel.xpath( xpath ).extract()):
+        print( "%d) %s" % (i+1, el) )
+     
+    
+To select the hyperlinks use
+
+xpath = '//p[@id="p2"]/a/@href'
+
+More useful formulas:
+
+def how_many_elements( xpath ):
+  print( "You've selected %d elements" % len(sel.xpath( xpath )) )
+  
+def preview( xpath ):
+  els = sel.xpath( xpath ).extract()
+  n = len(els)
+  for i,el in enumerate( els[:min(4,n)]):
+    print( "Element %d: %s" % (i+1,el) )
+    
+    
+Very useful xpath to be used with the formulas above
+
+xpath = '//a[contains(@class,"course-block")]/@href'
