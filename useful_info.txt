@@ -92,3 +92,76 @@ def preview( xpath ):
 Very useful xpath to be used with the formulas above
 
 xpath = '//a[contains(@class,"course-block")]/@href'
+
+--------------------------- CSS Locators----------------------------
+
+These locators use a > as opposed to the /
+
+e.g. '/html/body/div' would be 'html > body > div'
+
+same with the double space '//div/span//p' is now 'div > span p' notice that two slashes are completely gone
+
+[N] is replaced by ':nth-of-type(N)'
+
+for example '//div/p[2]' is now 'div > p:nth-of-type(N)'
+
+To find an element by a class use a '.' e.g. 'p.class-1'
+To find an element by aN ID use a '#' e.g. 'div#uid'
+
+Example with both
+
+css = 'div#uid > p.class-1'
+
+Select all elements in the document which class belongs to 'class1'
+
+css = '.class1'
+
+This example will take you to all elements in the document regardless if they have an additional class
+
+You can use the same combo with scrapy e.g. sel.css(' div > p')
+
+
+The CSS Locator string '*' selects all elements in the HTML document.
+The CSS Locator string '*.class-1' selects all elements which belong to class-1, but this is unnecessary since the string '.class-1' will also do the same job.
+The CSS Locator string '*#uid' selects the element with id attribute equal to uid, but this is unnecessary since the string '#uid' will also do the same job.
+
+Create the CSS Locator to all children of the element whose id is uid
+css_locator = '#uid > *'
+
+
+To get the href of an id of uid with xpath and css
+
+xpath = '//div[@id="uid"]/a/@href'
+
+the # tells us to select the div by its id='uid' while the > tells us to move down one generation and ::atr() is to select the a's attribute
+css_locator = 'div#uid > a::attr(href)'
+
+We can use text() inside the xpath to select the text of our desired elements or tags.
+sel.xpath('//p[@id="p-example"]/text()').extract()
+
+Conversely, a // before the text would get all of the text in the example
+sel.xpath('//p[@id="p-example"]//text()').extract
+
+Same for css but now with '::text' or ' ::text' for all of it
+sel.css('p#p-example::text').extract()
+
+sel.css('p#p-example ::text').extract()
+
+Useful formula
+
+def print_results( xpath, css_locator ):
+  print( "Your XPath extracts to following:")
+  print( our_xpath(xpath) )
+  print("_________________\n")
+  print( "Your CSS Locator extracts the following:")
+  print( our_css(css_locator) )
+  return None
+  
+  
+-------Response-------
+
+The variable response gets assigned a Response object that can use any xpath or css method on it. In addition, it can also use url and all sorts of methods
+this_url = response.url
+this_title = response.css('html > head > title::text').extract_first()
+
+Selector and Response objects both return a SelectorList when using the xpath or css methods to direct to elements.
