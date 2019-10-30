@@ -165,3 +165,33 @@ this_url = response.url
 this_title = response.css('html > head > title::text').extract_first()
 
 Selector and Response objects both return a SelectorList when using the xpath or css methods to direct to elements.
+
+-------------------Building the crawler-------------------------
+
+Useful function
+
+def inspect_class(c):
+  newc = c()
+  meths = dir(newc)
+  if 'name' in meths:
+    print("Your spider class name is:", newc.name)
+  if 'from_crawler' in meths:
+    print("It seems you have inherited methods from scrapy.Spider -- NICE!")
+  else:
+    print("Oh no! It doesn't seem that you are inheriting the methods from scrapy.Spider!!")
+    
+class DCspider( scrapy.Spider ):
+    name = "dcspider"
+
+    def start_requests( self ):
+        urls = [ 'https://www.datacamp.com/courses/all' ]
+        for url in urls:
+            yield scrapy.Request( url = url, callback = self.parse )
+
+    def parse( self, response ):
+        links = response.css('div.course-block > a::attr(href)').extract()
+        for link in links:
+            yield response.follow( url = link, callback = self.parse2 )
+
+    def parse2( self, response ):
+    # parse the course sites here!
