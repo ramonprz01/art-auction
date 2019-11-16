@@ -6,6 +6,8 @@ class AaspiderSpider(scrapy.Spider):
     name = 'aaspider'
     allowed_domains = ['ifar.org']
     start_urls = ['http://www.ifar.org/catalogues_raisonnes.php?alpha=&searchtype=artist&published=1&inPrep=1&artist=&author=']
+    prefix = "http://www.ifar.org/"
+    
 
     def parse(self, response):
         self.log('I just scraped: ' + response.url)
@@ -19,4 +21,7 @@ class AaspiderSpider(scrapy.Spider):
         }
         
         
-        
+        urls = response.css('td.g_center_name > a::attr(href)').extract()
+        for url in urls:
+            url = prefix.join(url)
+            yield scrapy.Request(url=url, callback)
