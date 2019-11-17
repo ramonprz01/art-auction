@@ -225,10 +225,12 @@ from scrapy.crawler import CrawlerProcess
 # Create the Spider class
 class DC_Description_Spider(scrapy.Spider):
   name = "dc_chapter_spider"
+  
   # start_requests method
   def start_requests(self):
     yield scrapy.Request(url = url_short,
                          callback = self.parse_front)
+  
   # First parsing method
   def parse_front(self, response):
     course_blocks = response.css('div.course-block')
