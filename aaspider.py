@@ -28,10 +28,19 @@ class AaspiderSpider(scrapy.Spider):
             
     
     def parse_details(self, response):
+        
         yield {
             'box_info' : response.css('div#box_2_left ::text').extract()
-#            'catalogues_links' : response.css('.catalogue_title > a::attr(href)').extract()
             }
+        new_info = response.css('.catalogue_title > a::attr(href)')
+        new_links = new_info.extract()
+        href_new = []
+        for url_new in new_links:
+            href_new.append("http://www.ifar.org/" + url_new)
+
+        for s in href_new:
+            yield scrapy.Request(s, callback=self.parse_details_dos)
+        
         
 #        yield {
 #            'name': response.css('td.g_center_name > a::text').extract(),
@@ -42,11 +51,11 @@ class AaspiderSpider(scrapy.Spider):
 #            'death_place': response.css('.g_center_death_place').extract()
 #        }
      
-#    def parse_details_dos(self, response):
+    def parse_details_dos(self, response):
 
-#        yield {
-#            'column_names' : response.css('.book_title > dl > dt::text').extract(),
-#            'content' : response.css('.book_title > dl > dd::text').extract()
-#        }
+        yield {
+            'column_names' : response.css('.book_title > dl > dt::text').extract(),
+            'content' : response.css('.book_title > dl > dd::text').extract()
+        }
         
         
