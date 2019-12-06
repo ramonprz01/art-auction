@@ -1,0 +1,97 @@
+Cleaning code
+
+occurr_publi = []
+for i in page_two.box:
+    if 'Published Catalogues' in i:
+        occurr_publi.append(1)
+    else:
+        occurr_publi.append(0)
+
+occurr_publi[1:5]  
+
+
+
+occurr_cat = []
+for i in page_two.box:
+    if 'Catalogues in Preparation' in i:
+        occurr_cat.append(1)
+    else:
+        occurr_cat.append(0)
+
+occurr_cat[1:5]
+
+
+page_two['publi_cat'] = pd.Series(occurr_publi)
+page_two['cat_prep'] = pd.Series(occurr_cat)
+page_two.head()
+
+# Second dataset
+page_two = pd.DataFrame(list(zip(artist_one, box_new)), columns = ['name', 'box'])
+
+tags = cat_prep['col_names'].apply(pd.Series)
+tags
+
+tags = page_two['box'].apply(pd.Series)
+
+tags = tags.rename(columns = lambda x : 'tag_' + str(x))
+pd.set_option('display.max_columns', 500)
+
+artist = []
+author_type = []
+author = []
+catalogue = []
+committee_uno = []
+committee_dos = []
+committee_tres = []
+committee_name = []
+contact_info = []
+continues_u = []
+date_begun = []
+diss_aut = []
+disserta = []
+fee = []
+format_a = []
+fourth_au = []
+freq_rev = []
+how_related = []
+how_revises = []
+medium = []
+most_re_ed = []
+notes = []
+orig_pub_date = []
+pref_contact = []
+typ_prim_spons = []
+prim_sponsor = []
+project_name = []
+pub_date = []
+publisher = []
+related_auths = []
+related_title = []
+rela_to_publis = []
+research_by = []
+reviewing = []
+sec_author = []
+typ_sec_spons = []
+sec_sponsor = []
+third_auth = []
+title_pub = []
+volumes = []
+
+
+iters = [
+    artist, author_type, author, catalogue, committee_uno, committee_dos, 
+    committee_tres, committee_name, contact_info, continues_u, date_begun,
+    diss_aut, disserta, fee, format_a, fourth_au, freq_rev,how_related, 
+    how_revises, medium, most_re_ed, notes, orig_pub_date, pref_contact,
+    typ_prim_spons, prim_sponsor, project_name, pub_date, publisher,
+    related_auths, related_title, rela_to_publis, research_by, reviewing,
+    sec_author, typ_sec_spons, sec_sponsor, third_auth, title_pub, volumes
+]
+
+
+dfs = {pub_type: rows for pub_type, rows in third_page.groupby('pub_or_prep')}
+pub_cat = pd.DataFrame(dfs[1])
+pub_cat.head(10)
+
+cat_prep = pd.DataFrame(dfs[2])
+len(cat_prep)

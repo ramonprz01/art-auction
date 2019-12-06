@@ -54,7 +54,7 @@ class AaspiderSpider(scrapy.Spider):
         yield {
             'artist_two' : response.css('h1::text').extract_first(),
             'column_names' : response.css('.book_title > dl > dt::text').extract(),
-            'content' : response.css('.book_title > dl > dd::text').extract()
+            'content' : response.css('.book_title > dl').css('dd').extract()
         }
         
         
