@@ -1,32 +1,31 @@
 # Web Crawling the International Foundatiion for Art Research Website
 
-Last updated: 07 December 2019
+_Last updated: **07 December 2019**_
 
-Created by Ramon Perez
+Created by **Ramon Perez**
 
 ## *Outline*
 
 ![alt text](https://www.memecreator.org/static/images/memes/4967563.jpg)
 
-This is a tutorial on how to crawl and clean the International Foundation for Art Research website. Althought this example is specific to this site, the code can be leveraged to crawl other sites where a three-part crawl is needed. That is, for a website where one has a main webpage to crawl, a sub-link, and a sub-sub-link to follow and crawl recursively.
+This is a tutorial on how to crawl and clean the International Foundation for Art Research website. Althought this example is specific to this site, the code can be leveraged to crawl other sites where a three-part crawl is needed. For example, the code can be used for crawling a website where one has a main webpage to crawl, a sub-link, and a sub-sub-link to follow for crawling and scraping websites recursively.
 
-For this tutorial, we will be using Python version 3.7.3 and [Scrapy](https://scrapy.org/) version 1.7.3 in JupyterLab since it provides a neat framework for working with jupyter notebooks, plain python, and the command line. The are other fantastic IDEs and tools out there for crawling such as [selenium](https://selenium-python.readthedocs.io/) and [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) that could be used for this task as well. If you decide to try one of these, please share your process with others.
+For this tutorial, we will be using Python version 3.7.3 and [Scrapy](https://scrapy.org/) version 1.7.3 and JupyterLab since it provides a neat environment for working with jupyter notebooks, plain python, and the command line. The are other fantastic IDEs and tools out there for crawling such as Atom, and Spider, or [selenium](https://selenium-python.readthedocs.io/) and [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/), respectively, that could be used for this task as well. If you decide to try one of these, please share your process with others.
 
 1. **Introduction to Scrapy**
 2. **Intro to our Crawler**
-
-
-
-
-
-
+3. **Crawling Part 1**
+4. **Crawling Part 2**
+5. **Crawling Part 3**
+6. **Crawling Part 4**
+7. **Initializing our Spider**
 
 
 ### 1. Introduction to Scrapy
 
 Scrapy is an open source Python package used for extracting data from the web in a fast and concice way. Its powerful and yet simple sintax makes scrapy the perfect tool for extracting data from a large number of websites with a few lines of code.
 
-For a better user experience, Scrapy is best when used in combination with the command line although it works totally fine when using jupyter notebooks only.
+For a better user experience, Scrapy is best when used in combination with the command line although it works totally fine while only using jupyter notebooks.
 
 To install scrapy using pip open up the command line and go to the folder where the files for this project will live at and then type:
 
@@ -34,17 +33,43 @@ To install scrapy using pip open up the command line and go to the folder where 
 $  pip install scrapy
 ```
 
-To install scrapy using conda open up the anaconda prompt with administrator rights and then type:
+To install scrapy using Anaconda open up the anaconda prompt with administrator rights and then type:
 
 ```shell
 $  conda install -c conda-forge scrapy
 ```
 
+In the next section we will explore every part of our crawler in detail and then show how to run it
 
 https://miro.medium.com/max/1100/0*Bj_O1jRFzZjKxzi4.jpg
 ### 2. Intro to our Crawler
 
+The first thing we want to do before crawling any website is to determine whether there are any restrictions we should be aware of. To do this we type the 
 
+To initiate a spider crawler using scrapy we can use the command:
+
+
+```shell
+$  scrapy genspider aaspider http://www.ifar.org/catalogues_raisonnes.php?alpha=&searchtype=artist&published=1&inPrep=1&artist=&author=
+```
+
+The "aa" stands art and artist, and the spider is for what we will be creating.
+
+Generating the spider with the previous commands provides a blank canvas with the website we intend to start our crawler from. When you run the command, scrapy will generate the .py file we need for our crawler. When you open it in JupyterLab you will see the following lines.
+
+```python
+import scrapy
+
+
+class AaspiderSpider(scrapy.Spider):
+    name = 'aaspider'
+    allowed_domains = ['http://www.ifar.org/catalogues_raisonnes.php?alpha=&searchtype=artist&published=1&inPrep=1&artist=&author=']
+    start_urls = [
+                'http://www.ifar.org/catalogues_raisonnes.php?alpha=&searchtype=artist&published=1&inPrep=1&artist=&author='
+                ]
+```
+
+Change the allowed_domains variable to show the main website of the site.
 The lines of code below will crawl all three parts of the 
 
 ```python
