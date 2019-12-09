@@ -44,7 +44,7 @@ In the next section we will explore every part of our crawler in detail and then
 https://miro.medium.com/max/1100/0*Bj_O1jRFzZjKxzi4.jpg
 ### 2. Intro to our Crawler
 
-The first thing we want to do before crawling any website is to determine whether there are any restrictions we should be aware of. To do this we type the 
+The first thing we want to do before crawling any website is to determine whether there are any restrictions we should be aware of. To do this we type the name of the main site of the website we will be scraping and add "/robots.txt"
 
 To initiate a spider crawler using scrapy we can use the command:
 

@@ -95,3 +95,33 @@ pub_cat.head(10)
 
 cat_prep = pd.DataFrame(dfs[2])
 len(cat_prep)
+
+# Clean all of the variables for the second and third pages
+content = []
+
+for s in second_part:
+    for key, val in s.items():
+        if key == 'artist_one':
+            artist_one.append(val)
+        elif key == 'box_info':
+            box_info.append(val)
+        elif key == 'artist_two':
+            artist_two.append(val)
+        elif key == 'column_names':
+            column_names.append(val)
+        elif key == 'content':
+            content.append(val)
+            
+len(content), len(name)
+
+
+-----------------------------------------
+momentary = []
+
+for i in dos_clean.column_names:
+    for s in i:
+        momentary.append(s)
+
+x = np.array(momentary)
+print(np.unique(x))
+----------------------------------------
