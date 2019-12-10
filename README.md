@@ -1,4 +1,4 @@
-# Web Crawling the International Foundatiion for Art Research Website
+# Web Crawling the International Foundation for Art Research Website
 
 _Last updated: **09 December 2019**_
 
